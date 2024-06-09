@@ -28,6 +28,27 @@ ramp-signal-4 = 直
 ramp-signal-font = 2
 ramp-signal-foreground = ${color.CYAN}
 
+[module/powermenu]
+type = custom/text
+
+content = 襤
+content-background = black
+content-foreground = red
+
+click-left = ~/.config/rofi/files/powermenu/type-5/powermenu.sh
+click-right = powermenu_t1
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[module/screenshot]
+
+type = custom/text
+
+content = 
+content-background = black
+content-foreground = red
+
+click-left = ~/.config/rofi/files/applets/bin/screenshot.sh
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/date]
@@ -79,6 +100,9 @@ ramp-volume-foreground = ${color.BLUE}
 
 ramp-headphones-0 = 
 ramp-headphones-1 = 
+
+
+click-right = ~/.config/rofi/files/applets/bin/volume.sh
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -270,7 +294,7 @@ content-background = ${color.BGL}
 content-foreground = ${color.RED}
 content-padding = 0
 
-click-left = ~/.config/rofi/bin/powermenu
+click-left = ~/.config/rofi/powermenu/type-5/powermenu.sh
 
 [module/sep]
 type = custom/text
