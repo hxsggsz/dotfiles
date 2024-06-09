@@ -40,6 +40,18 @@ click-right = powermenu_t1
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
+[module/launcher]
+type = custom/text
+
+content = 異
+content-background = black
+content-foreground = green
+
+click-left = ~/.config/rofi/files/launchers/type-1/launch.sh
+click-right = launcher_t1
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 [module/screenshot]
 
 type = custom/text

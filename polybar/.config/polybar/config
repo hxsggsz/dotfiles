@@ -84,7 +84,7 @@ font-1 = "Iosevka Nerd Font:size=12;3"
 
 modules-left = sep bspwm 
 modules-center = memory sep volume sep network sep date sep 
-modules-right = set screenshot powermenu 
+modules-right = sep launcher set screenshot powermenu 
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
