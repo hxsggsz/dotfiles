@@ -201,9 +201,10 @@ gaps outer 6
 smart_gaps true
 
 default_border pixel 4
-
-
+################# i3-radius #######################
 smart_borders on
+smart_borders no_gaps
+border_radius 2
 
 # set primary Rosé Pine colorscheme colors
 set $base           #191724

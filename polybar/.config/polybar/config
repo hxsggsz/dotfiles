@@ -3,7 +3,7 @@
 ; ┴  └─┘┴─┘┴ └─┘┴ ┴┴└─
 
 [global/wm]
-margin-bottom = 0
+margin-bottom = 4
 margin-top = 0
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -64,8 +64,8 @@ offset-y = 7
 background = ${color.BACKGROUND}
 foreground = ${color.FOREGROUND}
 
-radius-top = 0.0
-radius-bottom = 0.0
+radius-top = 4.0
+radius-bottom = 4.0
 
 line-size = 2
 line-color = ${color.BLUE}
