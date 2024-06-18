@@ -28,15 +28,23 @@ ramp-signal-4 = 直
 ramp-signal-font = 2
 ramp-signal-foreground = ${color.CYAN}
 
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[module/wirednetwork]
+type = internal/network
+interface = eth1
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 [module/powermenu]
 type = custom/text
 
 content = 襤
-content-background = black
-content-foreground = red
+content-background = ${color.BLUE} 
+content-padding = 1
 
 click-left = ~/.config/rofi/files/powermenu/type-5/powermenu.sh
-click-right = powermenu_t1
+click-right = powermenu
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -74,7 +82,7 @@ time-alt = %I:%M %p
 format = <label>
 format-prefix = " "
 format-prefix-font = 2
-format-prefix-foreground = ${color.RED}
+format-prefix-foreground = ${color.CYAN}
 
 label = %time%
 
