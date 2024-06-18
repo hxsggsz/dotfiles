@@ -52,7 +52,7 @@ scroll-down = bspc desktop -f next.local
 monitor-strict = false
 override-redirect = false
 
-bottom = true 
+bottom = false 
 fixed-center = true
 
 width = 100%
@@ -64,8 +64,8 @@ offset-y = 7
 background = ${color.BACKGROUND}
 foreground = ${color.FOREGROUND}
 
-radius-top = 4.0
-radius-bottom = 4.0
+radius-top = 0
+radius-bottom = 0
 
 line-size = 2
 line-color = ${color.BLUE}
@@ -82,9 +82,9 @@ font-1 = "Iosevka Nerd Font:size=12;3"
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-modules-left = sep bspwm 
-modules-center = memory sep volume sep network sep date sep 
-modules-right = sep launcher set screenshot powermenu 
+modules-left = sep bspwm
+modules-center = memory sep volume sep date 
+modules-right = sep wirednetwork network launcher screenshot powermenu
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
