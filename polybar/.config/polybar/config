@@ -82,9 +82,9 @@ font-1 = "Iosevka Nerd Font:size=12;3"
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-modules-left = sep bspwm
+modules-left = bspwm
 modules-center = memory sep volume sep date 
-modules-right = sep wirednetwork network launcher screenshot powermenu
+modules-right = wirednetwork network sep launcher screenshot powermenu
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 

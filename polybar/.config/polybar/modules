@@ -40,7 +40,6 @@ interface = eth1
 type = custom/text
 
 content = 襤
-content-background = ${color.BLUE} 
 content-padding = 1
 
 click-left = ~/.config/rofi/files/powermenu/type-5/powermenu.sh
