@@ -1,0 +1,7 @@
+gui:
+  nerdFontsVersion: '3'
+customCommands:
+  - key: '<c-p>'
+    context: 'global'
+    command: "git pull origin --rebase"
+    description: 'pull with rebase'
