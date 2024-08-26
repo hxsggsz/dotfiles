@@ -3,4 +3,5 @@ return {
   { "stevearc/conform.nvim",  enabled = false },
   { "catpuccin",              enabled = false },
   { "tokyonight",             enabled = false },
+  { "folke/noice.nvim",       enabled = false },
 }
