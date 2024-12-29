@@ -106,13 +106,18 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias n="nvim"
-alias p="pnpm"
-alias y="yarn"
-alias lg="lazygit"
+alias nv="nvim"
+alias pn="pnpm"
+alias ya="yarn"
+alias gt="git"
+alias tm='tmux'
+
 alias bootwin="sudo efibootmgr -n 0"
+
 alias nosql="sudo ./nosqlbooster4mongo*.AppImage --no-sandbox"
-alias tm='tmux new -s $(pwd | sed "s/.*\///g")'
+
+alias tms='tmux new -s $(pwd | sed "s/.*\///g")'
+
 
 # pnpm
 export PNPM_HOME="/home/hxsggsz/.local/share/pnpm"
@@ -127,3 +132,7 @@ eval "$(pyenv init -)"
 
 # Turso
 export PATH="$PATH:/home/hxsggsz/.turso"
+
+# Intelij
+export PATH="/home/hxsggsz/Downloads/ideaIU-2024.3/idea-IC-243.21565.193/bin:$PATH"
+
