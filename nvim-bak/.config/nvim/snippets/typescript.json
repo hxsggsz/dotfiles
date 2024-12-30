@@ -1,7 +1,17 @@
 {
+  "console.log for debug": {
+    "prefix": "consolelog",
+    "body": "console.log(`[${new Date().toISOString()}]: ${1:${TM_FILENAME}} `, $0)"
+  },
   "named-arrow-function": {
     "prefix": "caf",
-    "body": ["export const ${1} = () => {", " return (", "   ${2}", " )", "}"],
+    "body": [
+      "export const ${1} = () => {",
+      " return (",
+      "   ${2}",
+      " )",
+      "}"
+    ],
     "description": "Create a named arrow function"
   },
   "named-arrow-function-props": {

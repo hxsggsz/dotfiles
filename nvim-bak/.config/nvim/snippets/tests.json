@@ -1,17 +1,29 @@
 {
   "describe": {
     "prefix": "desc",
-    "body": ["describe('${1}', () => {", "  ${2}", "});"],
+    "body": [
+      "describe('${1}', () => {",
+      "  ${2}",
+      "});"
+    ],
     "description": "create a `describe` block"
   },
   "it": {
     "prefix": "it",
-    "body": ["it('${1}', () => {", "  ${2}", "});"],
+    "body": [
+      "it('${1}', () => {",
+      "  ${2}",
+      "});"
+    ],
     "description": "create a `it` block"
   },
   "it async": {
     "prefix": "ita",
-    "body": ["it('${1}', async () => {", "  ${2}", "});"],
+    "body": [
+      "it('${1}', async () => {",
+      "  ${2}",
+      "});"
+    ],
     "description": "create a `it async` block"
   },
   "Initial test code": {

@@ -34,12 +34,13 @@ return {
         hide_by_name = {
           "node_modules",
         },
-       bind_to_cwd = false,
-      follow_current_file = { enabled = true },
-      use_libuv_file_watcher = true,      },
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+      },
     },
   },
-config = function(_, opts)
+  config = function(_, opts)
     local function on_move(data)
       LazyVim.lsp.on_rename(data.source, data.destination)
     end
