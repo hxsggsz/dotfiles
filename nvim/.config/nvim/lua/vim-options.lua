@@ -77,7 +77,7 @@ vim.keymap.set("n", "<C-j>", vim.diagnostic.open_float, { desc = "Open floating 
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- copy and paste
-vim.opt.clipboard = "unnamedplus"
+vim.api.nvim_set_option("clipboard", "unnamed")
 
 local is_wsl = vim.fn.has("wsl") == 1
 

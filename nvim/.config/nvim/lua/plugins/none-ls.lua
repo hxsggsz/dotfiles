@@ -12,14 +12,14 @@ return {
     nls.setup({
       sources = {
         nls.builtins.formatting.stylelint,
-        nls.builtins.formatting.prettierd,
+        nls.builtins.formatting.prettier,
 
         nls.builtins.diagnostics.stylelint,
         nls.builtins.diagnostics.actionlint,
         nls.builtins.diagnostics.yamllint,
-        require("none-ls.diagnostics.eslint_d"),
+        require("none-ls.diagnostics.eslint"),
 
-        require("none-ls.code_actions.eslint_d"),
+        require("none-ls.code_actions.eslint"),
       },
       on_attach = function(client, bufnr)
         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
