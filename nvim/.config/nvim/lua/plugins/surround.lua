@@ -1,3 +1,3 @@
 return {
-  "echasnovski/mini.surround"
+  "tpope/vim-surround"
 }

@@ -13,12 +13,17 @@ return {
       sources = {
         nls.builtins.formatting.stylelint,
         nls.builtins.formatting.prettier,
+        nls.builtins.formatting.gofmt,
+        nls.builtins.formatting.goimports,
 
         nls.builtins.diagnostics.stylelint,
         nls.builtins.diagnostics.actionlint,
         nls.builtins.diagnostics.yamllint,
+        nls.builtins.diagnostics.golangci_lint,
         require("none-ls.diagnostics.eslint"),
 
+        nls.builtins.code_actions.impl,
+        nls.builtins.code_actions.gomodifytags,
         require("none-ls.code_actions.eslint"),
       },
       on_attach = function(client, bufnr)
