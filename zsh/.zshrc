@@ -71,7 +71,7 @@ export ANDROID_HOME=$HOME/Android/Sdk
 # Make sure emulator path comes before tools. Had trouble on Ubuntu with emulator from /tools being loaded
 # instead of the one from /emulator
 export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
-
+export PG_CONFIG=/Library/PostgreSQL/17/bin/pg_config
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
