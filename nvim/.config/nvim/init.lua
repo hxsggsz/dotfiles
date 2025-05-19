@@ -1,2 +1,2 @@
-require("hxsggsz.core")
-require("hxsggsz.lazy")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")

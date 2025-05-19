@@ -83,7 +83,6 @@ return {
 		-- Configuração do conform.nvim
 		conform.setup({
 			formatters_by_ft = {
-				-- Filetypes que usarão a lógica condicional Biome -> Prettier
 				javascript = biome_or_prettier_based_on_config,
 				typescript = biome_or_prettier_based_on_config,
 				javascriptreact = biome_or_prettier_based_on_config,
@@ -91,14 +90,14 @@ return {
 				json = biome_or_prettier_based_on_config,
 				jsonc = biome_or_prettier_based_on_config,
 
-				-- Outros filetypes com configuração explícita (Prettier como padrão)
 				css = { "prettier" },
 				html = { "prettier" },
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				liquid = { "prettier" },
 
-				-- Outros filetypes
+				go = { "goimports", "gofumpt" },
+
 				lua = { "stylua" },
 			},
 			format_on_save = {

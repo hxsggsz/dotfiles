@@ -1,7 +1,7 @@
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason.nvim",
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
@@ -40,6 +40,8 @@ return {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
 				"eslint", -- js linter
+				"goimports", -- golang
+				"gomodifytags", -- golang-- golang
 			},
 		})
 	end,
