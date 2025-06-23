@@ -14,9 +14,9 @@ clone_neovim_from_github() {
     echo "Directory $target_dir already exists."
   fi
 
-  git clone https://github.com/neovim/neovim "$target_dir" || return 1
-  cd "$target_dir" || return 1
-  git checkout stable || return 1
+  git clone https://github.com/neovim/neovim "$target_dir"
+  cd "$target_dir"
+  git checkout stable
   echo "Neovim cloned and checked out to stable branch."
 }
 
@@ -32,13 +32,13 @@ install_neovim() {
   if has_neovim_installed; then
     echo "already have neovim installed, removing it to install again"
     # removes the installed neovim
-    make distclean || return 1
+    make distclean
   fi
 
   echo "installing neovim..."
-  make CMAKE_BUILD_TYPE=RelWithDebInfomake CMAKE_BUILD_TYPE=RelWithDebInfo || return 1
-  sudo make install || return 1
-  echo "neovim installed successfully" || return 1
+  make CMAKE_BUILD_TYPE=RelWithDebInfomake CMAKE_BUILD_TYPE=RelWithDebInfo
+  sudo make install
+  echo "neovim installed successfully"
 }
 
 setup_neovim() {
