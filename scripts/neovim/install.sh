@@ -3,7 +3,7 @@
 readonly BUILD_DIR="build"
 
 install_neovim_dependencies() {
-  sudo apt install git fzf build-essential cmake git pkg-config libtool g++ libunibilium4 libunibilium-dev \
+  sudo apt install git tmux fzf build-essential cmake git pkg-config libtool g++ libunibilium4 libunibilium-dev \
     ninja-build gettext libtool libtool-bin autoconf automake unzip curl doxygen lua-term lua-term-dev luarocks || return 1
 }
 
