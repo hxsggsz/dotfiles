@@ -5,14 +5,16 @@ source ./neovim/install.sh
 source ./lazygit/install.sh
 source ./zsh/install.sh
 source ./nvm-zsh/install.sh
+source ./docker/install.sh
 
 # Define your tools and functions
-tools=("Git" "Neovim" "Lazygit" "Zsh" "Nvm" "All")
+tools=("Git" "Neovim" "Lazygit" "Zsh" "Nvm" "Docker" "All")
 function install_all() {
   setup_git
   setup_neovim
   install_lazygit
   install_nvm_with_zsh
+  install_docker
   setup_zsh_and_omz
 }
 
