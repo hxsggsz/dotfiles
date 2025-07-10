@@ -1,0 +1,16 @@
+[user]
+	email = vt.hugo.2021@gmail.com
+	name = hxsggsz
+[alias]
+lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+lb = !git branch --sort=-committerdate --format=\"%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)\" --color=always | column -t -s \"|\"
+cm = commit -m
+ps = push
+pso = push origin
+cma = commit --amend --no-edit
+pof = push origin --force-with-lease
+por = pull origin --rebase
+lab = checkout -
+nb = checkout -b
+[core]
+	editor = code --wait
