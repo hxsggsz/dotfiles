@@ -33,6 +33,7 @@ return {
 				"lua_ls",
 				"gopls",
 			},
+			automatic_installation = false,
 		})
 
 		mason_tool_installer.setup({

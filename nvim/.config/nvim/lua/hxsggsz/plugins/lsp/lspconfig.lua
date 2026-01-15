@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	version = "v2.*",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
@@ -17,7 +18,7 @@ return {
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
 		mason_lspconfig.setup({
-			ensure_installed = { "lua_ls", "tsserver", "gopls" }, -- Adicionei tsserver
+			ensure_installed = { "lua_ls", "ts_ls", "gopls" }, -- Adicionei tsserver
 			handlers = {
 				-- Handler padrão para todos os LSPs
 				function(server_name)
@@ -59,11 +60,8 @@ return {
 				end,
 
 				-- Novo handler para TypeScript
-				["tsserver"] = function()
-					lspconfig.tsserver.setup({
-						capabilities = capabilities,
-						-- Adicione configurações específicas do TS aqui (opcional)
-					})
+				["ts_ls"] = function()
+					lspconfig.ts_ls.setup({})
 				end,
 			},
 		})
