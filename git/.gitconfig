@@ -16,3 +16,5 @@ nb = checkout -b
   defaultBranch = main
 [core]
 	editor = code --wait
+[rerere]
+  enabled = true
