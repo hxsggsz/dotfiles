@@ -33,6 +33,8 @@ install_neovim() {
     echo "already have neovim installed, removing it to install again"
     # removes the installed neovim
     make distclean
+    # need to clean this folder if already have neovim installed
+    rm -rf .deps build
   fi
 
   echo "installing neovim..."
