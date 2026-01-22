@@ -38,9 +38,9 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"prettier", -- prettier formatter
+				"prettierd", -- prettier formatter
 				"stylua", -- lua formatter
-				"eslint", -- js linter
+				"eslint_d", -- js linter
 				"goimports", -- golang
 				"gomodifytags", -- golang-- golang
 			},

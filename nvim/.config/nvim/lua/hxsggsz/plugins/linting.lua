@@ -102,12 +102,12 @@ return {
 					lint.try_lint({ "biomejs" }, { bufnr = bufnr })
 				else
 					-- Se não usa Biome, executa SOMENTE eslint_d como fallback
-					lint.try_lint({ "eslint_d" }, { bufnr = bufnr })
+					-- lint.try_lint({ "eslint_d" }, { bufnr = bufnr })
+					lint.try_lint(nil, { bufnr = bufnr })
 				end
 			else
 				-- Para outros filetypes, usa o comportamento padrão do nvim-lint
 				-- (Procura linters definidos em lint.linters_by_ft, se houver)
-				lint.try_lint(nil, { bufnr = bufnr })
 			end
 		end
 
@@ -121,6 +121,27 @@ return {
 		vim.keymap.set("n", "<leader>!", function()
 			run_conditional_lint({ buf = api.nvim_get_current_buf() })
 		end, { desc = "[L]int: Disparar linter (Biome/ESLint)" }) -- Descrição atualizada
+
+		-- Chama as code actions do ESLint com a mesma lógica do linting condicional
+		local function run_eslint_code_actions()
+			local bufnr = api.nvim_get_current_buf()
+			local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+			if #clients == 0 then
+				vim.notify("Nenhum LSP ativo para executar ações do ESLint", vim.log.levels.INFO)
+				return
+			end
+
+			vim.lsp.buf.code_action({
+				context = {
+					diagnostics = vim.diagnostic.get(bufnr),
+					only = { "source.fixAll.eslint", "source.fixAll" },
+				},
+			})
+		end
+
+		vim.keymap.set("n", "<leader>ce", run_eslint_code_actions, {
+			desc = "[L]int: Ações do ESLint",
+		})
 
 		-- Opcional: Defina linters para outros filetypes aqui, se necessário
 		-- A função run_conditional_lint cuidará deles através do lint.try_lint(nil, ...)
