@@ -66,6 +66,7 @@ return {
 			local map = function(keys, func, desc)
 				vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 			end
+			local auto_inlay_hint_clients = { gopls = true, vtsls = true }
 
 			map("[d", vim.diagnostic.goto_prev, "Go to previous [D]iagnostic message")
 			map("]d", vim.diagnostic.goto_next, "Go to next [D]iagnostic message")
@@ -107,8 +108,7 @@ return {
 			--  See `:help K` for why this keymap
 			map("K", vim.lsp.buf.hover, "Hover Documentation")
 
-			-- WARN: This is not Goto Definition, this is Goto Declaration.
-			--  For example, in C this would take you to the header
+			-- WARN: This is not Goto Definition, this is Goto Declaration.		--  For example, in C this would take you to the header
 			map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 			map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
@@ -143,15 +143,26 @@ return {
 						vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
 					end,
 				})
-			end
 
+			end
+  local bufnr = event.buf
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+        -- Enable inlay hints if the server supports them
+        if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            vim.lsp.inlay_hint.enable(true, { bufnr })
+        end
 			-- The following code creates a keymap to toggle inlay hints in your
 			-- code, if the language server you are using supports them
-			if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-				map("<leader>th", function()
-					vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-				end, "[T]oggle Inlay [H]ints")
-			end
+			-- if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+			-- 	map("<leader>th", function()
+			-- 	local is_enabled = false
+			-- 	local inlay_hint = vim.lsp.inlay_hint
+			-- 	if type(inlay_hint) == "table" and type(inlay_hint.is_enabled) == "function" then
+			-- 		is_enabled = inlay_hint.is_enabled({ bufnr = event.buf })
+			-- 	end
+			-- 	)
+			-- end
 		end,
 	})
 
@@ -161,6 +172,20 @@ return {
 	-- So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+	capabilities.textDocument = capabilities.textDocument or {}
+	capabilities.textDocument.inlayHint = { dynamicRegistration = false }
+
+	local ts_inlay_hints = {
+		includeInlayFunctionReturnTypeHints = true,
+		includeInlayParameterNameHints = "all",
+		includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+		includeInlayFunctionParameterTypeHints = true,
+		includeInlayFunctionParameterTypeHintsWhenArgumentMatchesName = false,
+		includeInlayEnumMemberValueHints = true,
+		includeInlayVariableTypeHints = true,
+		includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+		includeInlayPropertyDeclarationTypeHints = true,
+	}
 
 	-- Enable the following language servers
 	--
@@ -169,19 +194,48 @@ return {
 	-- - filetypes (table): Override the default list of associated filetypes for the server
 	-- - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 	-- - settings (table): Override the default settings passed when initializing the server.
+	-- local function toggle_inlay_hints(bufnr, enable)
+	-- 	local inlay_hint = vim.lsp.inlay_hint
+	-- 	if type(inlay_hint) == "function" then
+	-- 		return inlay_hint(bufnr, enable)
+	-- 	end
+
+	-- 	if type(inlay_hint) == "table" then
+	-- 		if enable then
+	-- 			return inlay_hint.enable(bufnr)
+	-- 		end
+
+	-- 		return inlay_hint.disable(bufnr)
+	-- 	end
+	-- end
+
 	local servers = {
 		clangd = {},
-		-- gopls = {
-		--              settings = {
-		--                  gopls = {
-		--                      build = {
-		--                          experimentalWorkspaceModule = true,
-		--                          flags = { "-tags=cgo" },
-		--                      },
-		--                  },
-		--              },
-		--          },
-		gopls = {},
+		gopls = {
+			settings = {
+				gopls = {
+					hints = {
+						assignVariableTypes = true,
+						compositeLiteralFields = true,
+						compositeLiteralTypes = true,
+						constantValues = true,
+						functionTypeParameters = true,
+						parameterNames = true,
+						rangeVariableTypes = true,
+					},
+				},
+			},
+		},
+		vtsls = {
+			settings = {
+				typescript = {
+					inlayHints = ts_inlay_hints,
+				},
+				javascript = {
+					inlayHints = ts_inlay_hints,
+				},
+			},
+		},
 		lua_ls = {
 			settings = {
 				Lua = {
