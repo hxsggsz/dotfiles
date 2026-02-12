@@ -97,59 +97,78 @@ return {
 	-- ---[ 3. Implementação da "Estratégia A" (Gitsigns Hunks) ]---
 
 	local function format_changed_lines(bufnr)
-		-- Ignora buffers especiais (ex: janelas de log, terminal)
+		-- Ignora buffers especiais
 		if vim.bo[bufnr].buftype ~= "" then
 			return
 		end
 
-		-- Dependência obrigatória: gitsigns
+		-- Verifica se o buffer ainda é válido antes de começar
+		if not vim.api.nvim_buf_is_valid(bufnr) then
+			return
+		end
+
 		local ok, gitsigns = pcall(require, "gitsigns")
 		if not ok then
-			-- Fallback silencioso: formata tudo se gitsigns falhar
-			conform.format({ bufnr = bufnr, lsp_fallback = true })
+			require("conform").format({ bufnr = bufnr, lsp_fallback = true })
 			return
 		end
 
 		local hunks = gitsigns.get_hunks(bufnr)
-
-		-- Se não houver mudanças git (arquivo comitado ou não rastreado), formata tudo
 		if not hunks or #hunks == 0 then
-			-- Opcional: Se quiser formatar o arquivo inteiro quando não houver diffs, descomente:
-			-- conform.format({ bufnr = bufnr, lsp_fallback = true, timeout_ms = 1000 })
 			return
 		end
 
-		local format_opts = {
-			lsp_fallback = true,
-			timeout_ms = 1000,
-			async = false, -- Síncrono é crucial aqui para evitar conflitos de edição
-		}
+		local last_line_in_buf = vim.api.nvim_buf_line_count(bufnr)
 
-		-- Itera sobre os hunks de trás para frente (reverse)
-		-- Isso evita que a formatação de linhas superiores desloque as inferiores
+		-- Itera sobre os hunks
 		for i = #hunks, 1, -1 do
 			local hunk = hunks[i]
 			if hunk and hunk.type ~= "delete" then
 				local start_line = hunk.added.start
-				local end_line = start_line + hunk.added.count
+				local count = hunk.added.count
 
-				-- Proteção: garante que não ultrapasse o fim do arquivo
-				local line_count = vim.api.nvim_buf_line_count(bufnr)
-				if start_line > line_count then
+				-- Ajuste para hunks que começam na linha 0 (novos arquivos)
+				if start_line == 0 then
+					start_line = 1
+				end
+
+				local end_line = start_line + count
+
+				-- [CORREÇÃO CRÍTICA]: O end_line nunca pode ser maior que o total de linhas
+				if end_line > last_line_in_buf then
+					end_line = last_line_in_buf
+				end
+
+				-- Se, por algum motivo, o inicio for maior que o fim ou maior que o arquivo, pula
+				if start_line > end_line or start_line > last_line_in_buf then
 					goto continue
 				end
-				end_line = math.min(end_line, line_count)
 
-				-- Configura o range (LSP usa índice 0)
+				-- Configura o range.
+				-- Importante: end_line no conform geralmente espera a linha *após* o fim para ser inclusivo até o final da linha anterior,
+				-- mas isso causa o crash no final do arquivo. Vamos usar o próprio end_line com coluna final.
 				local range = {
-					start = { start_line - 1, 0 },
+					start = { start_line, 0 },
 					["end"] = { end_line, 0 },
 				}
 
-				conform.format(vim.tbl_extend("force", format_opts, {
-					bufnr = bufnr,
-					range = range,
-				}))
+				-- [PROTEÇÃO MÁXIMA]: Envolvemos o comando em pcall.
+				-- Se o conform tentar acessar um index inválido, ele vai falhar silenciosamente
+				-- em vez de jogar o erro na sua cara.
+				local status, err = pcall(function()
+					require("conform").format({
+						bufnr = bufnr,
+						range = range,
+						lsp_fallback = true,
+						timeout_ms = 500,
+						async = false,
+					})
+				end)
+
+				-- Opcional: Se quiser saber se falhou (debug), descomente abaixo:
+				if not status then
+					print("Erro ao formatar hunk: " .. err)
+				end
 
 				::continue::
 			end

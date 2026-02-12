@@ -119,7 +119,7 @@ alias nosql="sudo ./nosqlbooster4mongo*.AppImage --no-sandbox"
 
 alias tms='tmux new -s $(pwd | sed "s/.*\///g")'
 
-. ~/.asdf/plugins/java/set-java-home.zsh
+# . ~/.asdf/plugins/java/set-java-home.zsh
 
 # pnpm
 export PNPM_HOME="/home/hxsggsz/.local/share/pnpm"
