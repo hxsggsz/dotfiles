@@ -89,7 +89,7 @@ return {
 			yaml = { "prettierd" },
 			markdown = { "prettierd" },
 			lua = { "stylua" },
-			go = { "goimports", "gofumpt" },
+			go = { "goimports", "gofmt" },
 		},
 		-- NÃO usar format_on_save aqui, pois usaremos o autocmd customizado abaixo
 	})
