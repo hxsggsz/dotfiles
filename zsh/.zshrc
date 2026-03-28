@@ -112,6 +112,7 @@ alias pn="pnpm"
 alias ya="yarn"
 alias gt="git"
 alias tm='tmux'
+alias c='cursor'
 
 alias bootwin="sudo efibootmgr -n 0"
 
