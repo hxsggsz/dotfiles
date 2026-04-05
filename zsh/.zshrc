@@ -157,3 +157,6 @@ load_nvmrc_for_work() {
 
 load_nvmrc_for_work
 
+
+# opencode
+export PATH=/home/hxsggsz/.opencode/bin:$PATH
